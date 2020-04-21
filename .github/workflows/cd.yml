@@ -44,15 +44,6 @@ jobs:
           printf '{ "config": {}, "repositories": { "packagist": { "type": "composer", "url": "https://packagist.org" } } }' > dev/docker/composer/config.json
           printf '{ "github-oauth": { "github.com": "%s" } }\n' ${{ secrets.GH_TOKEN }} > /dev/docker/composer/auth.json
 
-      - name: Check for Cached Composer Dependencies
-        working-directory: ${{ env.BUILD_FOLDER }}
-        id: cache-composer-dependencies
-        uses: actions/cache@v1
-        with:
-          path: =dev/docker/composer/cache
-          key: ${{ runner.os }}-${{ env.cache_version }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-${{ env.cache_version }}-composer-
-
       - name: Install composer dependencies
         working-directory: ${{ env.BUILD_FOLDER }}
         run: composer install --optimize-autoloader
@@ -66,15 +57,6 @@ jobs:
         working-directory: ${{ env.BUILD_FOLDER }}
         id: yarn-cache-dir
         run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: Cache node modules
-        id: cache-node-modules
-        working-directory: ${{ env.BUILD_FOLDER }}
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-${{ env.cache_version }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-${{ env.cache_version }}-node-
 
       - name: Install node modules
         working-directory: ${{ env.BUILD_FOLDER }}
