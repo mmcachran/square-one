@@ -14,6 +14,7 @@ jobs:
       BUILD_FOLDER: ./build
       DEPLOY_FOLDER: ./deploy
       ENVIRONMENT: dev
+      COMPOSER_AUTH: '{ "github-oauth": { "github.com": "${{ secrets.GH_TOKEN }}" } }'
 
     steps:
       - name: BUILD SCM
@@ -36,14 +37,6 @@ jobs:
           php -r "file_exists( 'local-config.php' ) || copy( 'local-config-sample.php', 'local-config.php' );"
           php -r "file_exists( 'local-config.json' ) || copy( 'local-config-sample.json', 'local-config.json' );"
           echo "define( 'ENVIRONMENT', ${{env.ENVIROMENT}} );" >> local-config.php
-
-      - name: Create composer config files
-        working-directory: ${{ env.BUILD_FOLDER }}
-        run: |
-          mkdir -p dev/docker/composer
-          printf '{ "config": {}, "repositories": { "packagist": { "type": "composer", "url": "https://packagist.org" } } }' > dev/docker/composer/config.json
-          printf '{ "github-oauth": { "github.com": "%s" } }\n' ${{ secrets.GH_TOKEN }} > dev/docker/composer/auth.json
-          cat dev/docker/composer/auth.json
 
       - name: Install composer dependencies
         working-directory: ${{ env.BUILD_FOLDER }}
