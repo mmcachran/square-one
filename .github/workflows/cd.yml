@@ -66,6 +66,10 @@ jobs:
         run: |
           echo "decrypt host info"
 
+      - name: Create Deploy folder
+        run: |
+          mkdir -p ${{ env.DEPLOY_FOLDER }}
+
       - name: Host SCM
         working-directory: ${{ env.DEPLOY_FOLDER }}
         run: |
