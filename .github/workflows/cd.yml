@@ -40,10 +40,10 @@ jobs:
       - name: Create composer config files
         working-directory: ${{ env.BUILD_FOLDER }}
         run: |
-          pwd
           mkdir -p dev/docker/composer
           printf '{ "config": {}, "repositories": { "packagist": { "type": "composer", "url": "https://packagist.org" } } }' > dev/docker/composer/config.json
           printf '{ "github-oauth": { "github.com": "%s" } }\n' ${{ secrets.GH_TOKEN }} > dev/docker/composer/auth.json
+          cat dev/docker/composer/auth.json
 
       - name: Install composer dependencies
         working-directory: ${{ env.BUILD_FOLDER }}
