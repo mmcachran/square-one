@@ -64,7 +64,7 @@ jobs:
       - name: Decrypt Host Enviroment Vars
         working-directory: ${{ env.BUILD_FOLDER }}/dev/deploy
         run: |
-          echo '${{secret.ANSIBLE_VAULTPASS}}' > ./.vaultpass
+          echo '${{secrets.ANSIBLE_VAULTPASS}}' > ./.vaultpass
           sh decrypt.sh
           sh 'rm ./.vaultpass'
           source ./dev/deploy/.host/config/${{env.ENVIRONMENT}}.cfg
