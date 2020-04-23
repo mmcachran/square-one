@@ -68,8 +68,8 @@ jobs:
           sh decrypt.sh
           rm ./.vaultpass
           source .host/config/${{env.ENVIRONMENT}}.cfg
-          echo "::set-output name=deploy_repo::domain"
-          echo "::set-output name=deploy_repo::deploy_repo"
+          echo "::set-env name=deploy_repo::$domain"
+          echo "::set-env name=deploy_repo::$deploy_repo"
 
       - name: Create Deploy folder
         run: |
