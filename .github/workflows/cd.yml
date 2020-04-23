@@ -71,15 +71,13 @@ jobs:
           echo "::set-env name=domain::$domain"
           echo "::set-env name=deploy_repo::$deploy_repo"
 
-      - name: Create Deploy folder
-        run: |
-          mkdir -p ${{ env.DEPLOY_FOLDER }}
-
-      - name: Host SCM
-        working-directory: ${{ env.DEPLOY_FOLDER }}
-        run: |
-          echo ${{env.domain}}
-          echo ${{env.deploy_repo}}
+      - name: BUILD SCM
+        uses: actions/checkout@v2
+        with:
+          path: ${{ env.DEPLOY_FOLDER }}
+          repository: ${{env.deploy_repo}}
+          ssh-key: ${{secrets.HOST_SSH_KEY}}
+          ssh-strict: false
 
       - name: Sync Build files to Deploy directory
         run: |
