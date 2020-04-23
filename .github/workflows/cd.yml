@@ -65,9 +65,9 @@ jobs:
         working-directory: ${{ env.BUILD_FOLDER }}
         run: |
           echo '${secret.ANSIBLE_VAULTPASS}' > ./.vaultpass
-          ansible-vault decrypt ${{ env.BUILD_FOLDER }}/dev/deploy/.host/config/${{env.ENVIRONMENT}}.cfg.vaulted --output=${{ env.BUILD_FOLDER }}/dev/deploy/.host/config/${{env.ENVIRONMENT}}.cfg --vault-password-file ./.vaultpass
+          ansible-vault decrypt ./dev/deploy/.host/config/${{env.ENVIRONMENT}}.cfg.vaulted --output=./dev/deploy/.host/config/${{env.ENVIRONMENT}}.cfg --vault-password-file ./.vaultpass
           sh 'rm ./.vaultpass'
-          source ${{ env.BUILD_FOLDER }}/dev/deploy/.host/config/${{env.ENVIRONMENT}}.cfg
+          source ./dev/deploy/.host/config/${{env.ENVIRONMENT}}.cfg
           echo "::set-output name=deploy_repo::domain"
           echo "::set-output name=deploy_repo::deploy_repo"
 
