@@ -67,7 +67,7 @@ jobs:
           echo '${{secrets.ANSIBLE_VAULTPASS}}' > ./.vaultpass
           sh decrypt.sh
           rm ./.vaultpass
-          source ./dev/deploy/.host/config/${{env.ENVIRONMENT}}.cfg
+          source .host/config/${{env.ENVIRONMENT}}.cfg
           echo "::set-output name=deploy_repo::domain"
           echo "::set-output name=deploy_repo::deploy_repo"
 
