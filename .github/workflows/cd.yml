@@ -73,7 +73,7 @@ jobs:
 
       - name: HOST SCM
         run: |
-          echo "${{HOST_SSH_KEY}}" > host-ssh-key
+          echo "${{secrets.HOST_SSH_KEY}}" > host-ssh-key
           ssh-add host-ssh-key
           ssh-agent
           git clone ${{deploy_repo}} ${{DEPLOY_FOLDER}}
