@@ -19,8 +19,8 @@ jobs:
     steps:
       - name: BUILD SCM
         uses: actions/checkout@v2
-          with:
-            path: ${{ env.BUILD_FOLDER }}
+        with:
+          path: ${{ env.BUILD_FOLDER }}
 
       - name: Create .env
         working-directory: ${{ env.BUILD_FOLDER }}
@@ -73,8 +73,8 @@ jobs:
 
       - name: HOST SCM
         uses: webfactory/ssh-agent@v0.2.0
-          with:
-            ssh-private-ket: ${{secrets.HOST_SSH_KEY}}
+        with:
+          ssh-private-ket: ${{secrets.HOST_SSH_KEY}}
         run: |
           git clone ${{env.deploy_repo}} ${{env.DEPLOY_FOLDER}}
           ssh git@git.wpengine.com info
