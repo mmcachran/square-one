@@ -18,11 +18,11 @@ jobs:
 
     steps:
       - name: BUILD SCM
-      uses: actions/checkout@v2
-                with:
-                path: ${{ env.BUILD_FOLDER }}
+        uses: actions/checkout@v2
+          with:
+            path: ${{ env.BUILD_FOLDER }}
 
-          - name: Create .env
+      - name: Create .env
         working-directory: ${{ env.BUILD_FOLDER }}
         run: |
           printf '
