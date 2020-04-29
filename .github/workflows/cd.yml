@@ -15,12 +15,14 @@ jobs:
       DEPLOY_FOLDER: ./deploy
       ENVIRONMENT: dev
       COMPOSER_AUTH: '{ "github-oauth": { "github.com": "${{ secrets.GH_TOKEN }}" } }'
+      BUILD_BRANCH: epic/fidgety-feet
 
     steps:
       - name: BUILD SCM
         uses: actions/checkout@v2
         with:
           path: ${{ env.BUILD_FOLDER }}
+          ref: ${{env.BUILD_BRANCH}}
 
       - name: Create .env
         working-directory: ${{ env.BUILD_FOLDER }}
@@ -109,7 +111,7 @@ jobs:
             --exclude=wp-content/object-cache.php \
             --exclude=wp-content/plugins/core/assets/templates/cli
 
-      - name: Sync Build Vendor folder to Deploy directory
+      - name: Sync Build VENDOR folder to Deploy directory
         run: |
           rsync -rpv ${{env.BUILD_FOLDER}}/ ${{env.DEPLOY_FOLDER}} \
             --include=build-process.php \
