@@ -15,7 +15,7 @@ jobs:
       DEPLOY_FOLDER: ./deploy
       ENVIRONMENT: dev
       COMPOSER_AUTH: '{ "github-oauth": { "github.com": "${{ secrets.GH_TOKEN }}" } }'
-      BUILD_BRANCH: epic/fidgety-feet
+      BUILD_BRANCH: feeture/gha-deploys
 
     steps:
       - name: BUILD SCM
