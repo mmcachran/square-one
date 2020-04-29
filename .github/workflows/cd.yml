@@ -76,7 +76,7 @@ jobs:
           echo "${{secrets.HOST_SSH_KEY}}" > host-ssh-key
           ssh-add host-ssh-key
           ssh-agent
-          git clone ${{deploy_repo}} ${{DEPLOY_FOLDER}}
+          git clone ${{env.deploy_repo}} ${{env.DEPLOY_FOLDER}}
 
       - name: Sync Build files to Deploy directory
         run: |
