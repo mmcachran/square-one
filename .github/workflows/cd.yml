@@ -74,7 +74,7 @@ jobs:
       - name: HOST SCM SSH KEY
         uses: webfactory/ssh-agent@v0.2.0
         with:
-          ssh-private-ket: ${{secrets.HOST_SSH_KEY}}
+          ssh-private-key: ${{secrets.HOST_SSH_KEY}}
 
       - name: HOST SCM
         run: |
