@@ -18,11 +18,11 @@ jobs:
 
     steps:
       - name: BUILD SCM
-        uses: actions/checkout@v2
-        with:
-          path: ${{ env.BUILD_FOLDER }}
+      uses: actions/checkout@v2
+                with:
+                path: ${{ env.BUILD_FOLDER }}
 
-      - name: Create .env
+          - name: Create .env
         working-directory: ${{ env.BUILD_FOLDER }}
         run: |
           printf '
@@ -72,11 +72,12 @@ jobs:
           echo "::set-env name=deploy_repo::$deploy_repo"
 
       - name: HOST SCM
+        uses: webfactory/ssh-agent@v0.2.0
+          with:
+            ssh-private-ket: ${{secrets.HOST_SSH_KEY}}
         run: |
-          echo "${{secrets.HOST_SSH_KEY}}" > host-ssh-key
-          ssh-add host-ssh-key
-          ssh-agent
           git clone ${{env.deploy_repo}} ${{env.DEPLOY_FOLDER}}
+          ssh git@git.wpengine.com info
 
       - name: Sync Build files to Deploy directory
         run: |
