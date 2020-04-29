@@ -38,6 +38,24 @@ jobs:
           php -r "file_exists( 'local-config.json' ) || copy( 'local-config-sample.json', 'local-config.json' );"
           echo "define( 'ENVIRONMENT', ${{env.ENVIROMENT}} );" >> local-config.php
 
+      - name: Decrypt Host Enviroment Vars
+        working-directory: ${{ env.BUILD_FOLDER }}/dev/deploy
+        run: |
+          echo '${{secrets.ANSIBLE_VAULTPASS}}' > ./.vaultpass
+          sh decrypt.sh
+          rm ./.vaultpass
+          source .host/config/${{env.ENVIRONMENT}}.cfg
+          echo "::set-env name=domain::$domain"
+          echo "::set-env name=deploy_repo::$deploy_repo"
+
+      - name: BUILD SCM
+        uses: actions/checkout@v2
+        with:
+          path: ${{ env.DEPLOY_FOLDER }}
+          repository: ${{env.deploy_repo}}
+          ssh-key: ${{secrets.HOST_SSH_KEY}}
+          ssh-strict: false
+
       - name: Install composer dependencies
         working-directory: ${{ env.BUILD_FOLDER }}
         run: |
@@ -61,23 +79,7 @@ jobs:
         working-directory: ${{ env.BUILD_FOLDER }}
         run: yarn --frozen-lockfile
 
-      - name: Decrypt Host Enviroment Vars
-        working-directory: ${{ env.BUILD_FOLDER }}/dev/deploy
-        run: |
-          echo '${{secrets.ANSIBLE_VAULTPASS}}' > ./.vaultpass
-          sh decrypt.sh
-          rm ./.vaultpass
-          source .host/config/${{env.ENVIRONMENT}}.cfg
-          echo "::set-env name=domain::$domain"
-          echo "::set-env name=deploy_repo::$deploy_repo"
 
-      - name: BUILD SCM
-        uses: actions/checkout@v2
-        with:
-          path: ${{ env.DEPLOY_FOLDER }}
-          repository: ${{env.deploy_repo}}
-          ssh-key: ${{secrets.HOST_SSH_KEY}}
-          ssh-strict: false
 
       - name: Sync Build files to Deploy directory
         run: |
