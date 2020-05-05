@@ -7,10 +7,8 @@ use Tribe\Libs\Container\Abstract_Subscriber;
 use Tribe\Project\Theme\Config\Image_Sizes;
 use Tribe\Project\Theme\Config\Supports;
 use Tribe\Project\Theme\Config\Web_Fonts;
-use Tribe\Project\Theme\Media\Full_Size_Gif;
 use Tribe\Project\Theme\Media\Image_Wrap;
 use Tribe\Project\Theme\Media\Oembed_Filter;
-use Tribe\Project\Theme\Media\WP_Responsive_Image_Disabler;
 
 class Theme_Subscriber extends Abstract_Subscriber {
 	public function register(): void {
@@ -28,21 +26,13 @@ class Theme_Subscriber extends Abstract_Subscriber {
 	private function media(): void {
 		$this->image_wrap();
 		$this->image_links();
-		$this->disable_responsive_images();
 		$this->oembed();
-		// $this->full_size_gif(); // Uncomment to require full size gifs
 	}
 
 	private function body_classes() {
 		add_filter( 'body_class', function ( $classes ) {
 			return $this->container->get( Body_Classes::class )->body_classes( $classes );
 		}, 10, 1 );
-	}
-
-	private function full_size_gif() {
-		add_filter( 'image_downsize', function ( $data, $id, $size ) {
-			return $this->container->get( Full_Size_Gif::class )->full_size_only_gif( $data, $id, $size );
-		}, 10, 3 );
 	}
 
 	private function image_sizes() {
@@ -66,15 +56,6 @@ class Theme_Subscriber extends Abstract_Subscriber {
 		}, 10, 1 );
 	}
 
-	private function disable_responsive_images() {
-		add_filter( 'wp_get_attachment_image_attributes', function ( $attr ) {
-			return $this->container->get( WP_Responsive_Image_Disabler::class )->filter_image_attributes( $attr );
-		}, 999, 1 );
-		add_action( 'after_setup_theme', function () {
-			$this->container->get( WP_Responsive_Image_Disabler::class )->disable_wordpress_filters();
-		}, 10, 0 );
-	}
-
 	private function oembed() {
 		add_filter( 'oembed_dataparse', function ( $html, $data, $url ) {
 			return $this->container->get( Oembed_Filter::class )->get_video_component( $html, $data, $url );
@@ -96,21 +77,18 @@ class Theme_Subscriber extends Abstract_Subscriber {
 	}
 
 	private function web_fonts() {
-		add_action( 'wp_head', function () {
-			$this->container->get( Web_Fonts::class )->load_fonts();
+		add_action( 'wp_enqueue_scripts', function () {
+			$this->container->get( Web_Fonts::class )->enqueue_fonts();
+		}, 0, 0 );
+		add_action( 'enqueue_block_editor_assets', function () {
+			$this->container->get( Web_Fonts::class )->enqueue_fonts();
 		}, 0, 0 );
 		add_action( 'tribe/unsupported_browser/head', function () {
-			$this->container->get( Web_Fonts::class )->load_fonts();
+			$this->container->get( Web_Fonts::class )->inject_unsupported_browser_fonts();
 		}, 0, 0 );
-		add_action( 'admin_head', function () {
-			$this->container->get( Web_Fonts::class )->localize_typekit_tinymce();
-		}, 0, 0 );
-		add_filter( 'mce_external_plugins', function ( $plugins ) {
-			return $this->container->get( Web_Fonts::class )->add_typekit_to_editor( $plugins );
-		}, 10, 1 );
-		/* add_action( 'login_head', function() {
-			$this->container->get( Fonts::class )->load_fonts();
-		}, 0, 0); */
+		add_action( 'after_setup_theme', function () {
+			$this->container->get( Web_Fonts::class )->add_tinymce_editor_fonts();
+		}, 9, 0 );
 	}
 
 }
