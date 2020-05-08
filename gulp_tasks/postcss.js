@@ -5,9 +5,18 @@ const rename = require( 'gulp-rename' );
 const gulpif = require( 'gulp-if' );
 const concat = require( 'gulp-concat' );
 const browserSync = require( 'browser-sync' );
-const PrefixWrap = require( 'postcss-prefixwrap' );
 const postcssFunctions = require( '../dev_components/theme/pcss/functions' );
 const pkg = require( '../package.json' );
+
+const selectorsBefore = [
+	'.t-sink',
+	'.s-sink',
+];
+
+const selectorsAfter = [
+	'[data-type^="core/"]',
+	'[data-type^="core/"]',
+];
 
 const sharedPlugins = [
 	require( 'postcss-import-ext-glob' )( {
@@ -36,9 +45,7 @@ const compilePlugins = sharedPlugins.concat( [
 ] );
 
 const compileGutenbergPlugins = sharedPlugins.concat( [
-	PrefixWrap( '.block-editor-block-list__layout', {
-		prefixRootTags: false,
-	} ),
+	require( '@moderntribe/postcss-multi-selector-replace' )( { before: selectorsBefore, after: selectorsAfter } ),
 	require( 'postcss-assets' )( { loadPaths: [ `${ pkg.square1.paths.core_theme }/` ] } ),
 ] );
 

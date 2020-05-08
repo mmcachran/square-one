@@ -14,17 +14,19 @@
 	 * First & last element overrides
 	 * ----------------------------------------------------------------------------- */
 
-	& > {
-		/* CASE: remove top margin from first element */
+	/* TODO: Figure better solution for this. */
+
+	/*	& > {
+		!* CASE: remove top margin from first element *!
 		*:first-child {
 			margin-top: 0;
 		}
 
-		/* CASE: remove bottom margin from bottom element */
+		!* CASE: remove bottom margin from bottom element *!
 		*:last-child {
 			margin-bottom: 0;
 		}
-	}
+	} */
 
 	/* -----------------------------------------------------------------------------
 	 * Headings
@@ -123,7 +125,8 @@
 
 	/* cite */
 	cite,
-	.cite {
+	.cite,
+	.wp-block-quote__citation {
 		display: block;
 		margin-top: var(--spacer-10);
 	}
@@ -138,38 +141,21 @@
 	}
 
 	/* -----------------------------------------------------------------------------
-	 * Overline
-	 *
-	 * Overrides default selector spacing.
+	 * Images
 	 * ----------------------------------------------------------------------------- */
 
-	.t-overline {
-		margin-bottom: var(--spacer-20);
-
-		& + * {
-			margin-top: var(--spacer-20);
-		}
-	}
-
-	/* -----------------------------------------------------------------------------
-	 * Media: Alignments
-	 * ----------------------------------------------------------------------------- */
-
-	.alignfull,
-	.alignwide,
-	.aligncenter,
-	.alignnone {
+	.wp-block-image {
 		margin-top: var(--spacer-60);
 		margin-bottom: var(--spacer-60);
-	}
 
-	.alignleft,
-	.alignright {
-		margin-top: var(--spacer-40);
-		margin-bottom: var(--spacer-40);
+		.alignleft,
+		.alignright {
+			margin-top: var(--spacer-40);
+			margin-bottom: var(--spacer-40);
 
-		@media (--viewport-medium) {
-			margin-top: 5px;
+			@media (--viewport-medium) {
+				margin-top: 5px;
+			}
 		}
 	}
 
@@ -182,15 +168,19 @@
 	.wp-block-embed {
 		margin-top: var(--spacer-60);
 		margin-bottom: var(--spacer-60);
+	}
 
-		&.alignleft,
-		&.alignright {
-			margin-top: var(--spacer-40);
-			margin-bottom: var(--spacer-40);
+	/* -----------------------------------------------------------------------------
+	 * Overline
+	 *
+	 * Overrides default selector spacing.
+	 * ----------------------------------------------------------------------------- */
 
-			@media (--viewport-medium) {
-				margin-top: 5px;
-			}
+	.is-style-t-overline {
+		margin-bottom: var(--spacer-20);
+
+		& + * {
+			margin-top: var(--spacer-20);
 		}
 	}
 }

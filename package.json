@@ -46,6 +46,8 @@
     "npm": "6.12.1"
   },
   "scripts": {
+    "gulp": "gulp",
+    "start": "npm run docker:start && yarn install && npm run gulp -- dist && npm run gulp -- dev",
     "js:build": "npx webpack",
     "js:theme:dev": "cross-env NODE_ENV=themedev npm run js:build",
     "js:admin:dev": "cross-env NODE_ENV=admindev npm run js:build",
@@ -119,6 +121,7 @@
     "@babel/plugin-transform-regenerator": "^7.7.0",
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-react": "^7.7.0",
+    "@moderntribe/postcss-multi-selector-replace": "^1.0.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
@@ -186,7 +189,6 @@
     "postcss-mixins": "^6.2.3",
     "postcss-nested": "^4.1.0",
     "postcss-partial-import": "^4.1.0",
-    "postcss-prefixwrap": "1.14.0",
     "postcss-preset-env": "^6.0.10",
     "postcss-quantity-queries": "^0.5.0",
     "postcss-reporter": "^6.0.1",
