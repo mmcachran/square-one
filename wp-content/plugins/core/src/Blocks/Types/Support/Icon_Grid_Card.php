@@ -11,11 +11,6 @@ use Tribe\Project\Blocks\Types\Icon_Grid;
 class Icon_Grid_Card extends Block_Type_Config {
 	public const NAME = 'tribe/icon-grid--card';
 
-	public const ICON    = 'icon';
-	public const TITLE   = 'title';
-	public const CONTENT = 'content';
-	public const CTA     = 'cta';
-
 	public function build(): Block_Type_Interface {
 		return $this->factory->block( self::NAME )
 			->set_label( 'Card' )
@@ -26,14 +21,14 @@ class Icon_Grid_Card extends Block_Type_Config {
 	}
 
 	private function content_area(): Content_Section {
-		$icon = $this->factory->content()->field()->image( self::ICON );
+		$icon = $this->factory->content()->field()->image( Icon_Grid::ICON );
 
-		$header = $this->factory->content()->field()->text( self::TITLE )
+		$header = $this->factory->content()->field()->text( Icon_Grid::TITLE )
 			->add_class( 'h2' );
 
-		$content = $this->factory->content()->field()->richtext( self::CONTENT );
+		$content = $this->factory->content()->field()->richtext( Icon_Grid::CONTENT );
 
-		$cta = $this->factory->content()->field()->link( self::CTA )
+		$cta = $this->factory->content()->field()->link( Icon_Grid::CTA )
 			->set_label( __( 'Call to Action', 'tribe' ) );
 
 		return $this->factory->content()->section()

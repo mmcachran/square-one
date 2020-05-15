@@ -14,6 +14,10 @@ class Icon_Grid extends Block_Type_Config {
 	public const HEADER      = 'header';
 	public const DESCRIPTION = 'subheader';
 	public const CARDS       = 'cards';
+	public const CTA         = 'cta';
+	public const TITLE       = 'title';
+	public const ICON        = 'icon';
+	public const CONTENT     = 'content';
 
 	public function build(): Block_Type_Interface {
 		return $this->factory->block( self::NAME )

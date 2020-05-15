@@ -59,7 +59,7 @@ class Interstitial extends Block_Controller {
 	}
 
 	private function get_description(): string {
-		return $this->attributes[ Interstitial_Block::DESCRIPTION ] ?? Interstitial_Block::DESCRIPTION;
+		return $this->attributes[ Interstitial_Block::DESCRIPTION ] ?? '';
 	}
 
 	private function get_cta(): string {
