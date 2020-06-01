@@ -36,6 +36,8 @@ class Blocks_Definer implements Definer_Interface {
 				DI\get( Types\Support\Media_Text_Media_Embed::class ),
 				DI\get( Types\Support\Media_Text_Media_Image::class ),
 				DI\get( Types\Support\Media_Text_Text::class ),
+
+				DI\get( Types\Kitchen_Sink::class ),
 			] ),
 
 			self::CONTROLLER_MAP => DI\add( [
@@ -45,6 +47,7 @@ class Blocks_Definer implements Definer_Interface {
 				Types\Icon_Grid::NAME    => Controllers\Block\Debug::class,
 				Types\Interstitial::NAME => Controllers\Block\Debug::class,
 				Types\Media_Text::NAME   => Controllers\Block\Debug::class,
+				Types\Kitchen_Sink::NAME   => Controllers\Block\Debug::class,
 			] ),
 
 			/**
