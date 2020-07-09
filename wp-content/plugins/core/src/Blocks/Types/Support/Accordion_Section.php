@@ -17,7 +17,7 @@ class Accordion_Section extends Block_Type_Config {
 
 	public function build(): Block_Type_Interface {
 		return $this->factory->block( self::NAME )
-			->set_label( 'Accordion Section' )
+			->set_label( __( 'Accordion Section', 'tribe' ) )
 			->set_parents( Accordion::NAME )
 			->add_content_section( $this->content_area() )
 			->add_class( 'c-accordion__row' )
@@ -26,10 +26,10 @@ class Accordion_Section extends Block_Type_Config {
 
 	private function content_area(): Content_Section {
 		$header = $this->factory->content()->field()->text( self::HEADER )
-			->add_class( 'c-accordion__header' );
+			->add_class( 'c-accordion__header h5' );
 
 		$content = $this->factory->content()->field()->flexible_container( self::CONTENT )
-			->add_class( 'c-accordion__content-inner' )
+			->add_class( 'c-accordion__content-container' )
 			->add_template_block( 'core/paragraph' );
 
 		foreach ( $this->nested_block_types() as $type ) {
