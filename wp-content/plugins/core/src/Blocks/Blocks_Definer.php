@@ -10,6 +10,7 @@ use Tribe\Project\Blocks\Builder\Builder_Factory;
 use Tribe\Project\Components\Component_Factory;
 use Tribe\Project\Components\Handler;
 use Tribe\Project\Controllers\Blocks\Hero;
+use Tribe\Project\Controllers\Blocks\Gallery;
 use Tribe\Project\Controllers\Blocks\Media_Text;
 use Tribe\Project\Controllers\Blocks\Interstitial;
 use Tribe\Project\Templates\Controllers;
@@ -24,6 +25,7 @@ class Blocks_Definer implements Definer_Interface {
 	protected $controller_map = [
 		Types\Media_Text::NAME   => Media_Text::class,
 		Types\Hero::NAME         => Hero::class,
+		Types\Gallery::NAME      => Gallery::class,
 		Types\Interstitial::NAME => Interstitial::class,
 	];
 
@@ -46,6 +48,8 @@ class Blocks_Definer implements Definer_Interface {
 				DI\get( Types\Support\Content_Carousel_Card::class ),
 
 				DI\get( Types\Hero::class ),
+
+				DI\get( Types\Gallery::class ),
 
 				DI\get( Types\Icon_Grid::class ),
 				DI\get( Types\Support\Icon_Grid_Card::class ),
