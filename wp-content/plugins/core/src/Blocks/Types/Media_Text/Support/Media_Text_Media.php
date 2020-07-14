@@ -1,12 +1,12 @@
 <?php
 declare( strict_types=1 );
 
-namespace Tribe\Project\Blocks\Types\Support;
+namespace Tribe\Project\Blocks\Types\Media_Text\Support;
 
 use Tribe\Gutenpanels\Blocks\Block_Type_Interface;
 use Tribe\Gutenpanels\Blocks\Sections\Content_Section;
 use Tribe\Project\Blocks\Block_Type_Config;
-use Tribe\Project\Blocks\Types\Media_Text;
+use Tribe\Project\Blocks\Types\Media_Text\Media_Text;
 
 class Media_Text_Media extends Block_Type_Config {
 	public const NAME = Media_Text::NAME . '--media';
@@ -16,6 +16,7 @@ class Media_Text_Media extends Block_Type_Config {
 			->set_label( __( 'Media', 'tribe' ) )
 			->set_dashicon( 'menu-alt' )
 			->set_parents( Media_Text::NAME )
+			->add_class( 'media-text__media' )
 			->add_content_section( $this->child_container() )
 			->build();
 	}

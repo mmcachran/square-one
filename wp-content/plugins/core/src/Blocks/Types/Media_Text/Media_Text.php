@@ -1,25 +1,25 @@
 <?php
 declare( strict_types=1 );
 
-namespace Tribe\Project\Blocks\Types;
+namespace Tribe\Project\Blocks\Types\Media_Text;
 
 use Tribe\Gutenpanels\Blocks\Block_Type_Interface;
 use Tribe\Gutenpanels\Blocks\Sections\Content_Section;
 use Tribe\Gutenpanels\Blocks\Sections\Toolbar_Section;
 use Tribe\Project\Blocks\Block_Type_Config;
-use Tribe\Project\Blocks\Types\Support\Media_Text_Media;
-use Tribe\Project\Blocks\Types\Support\Media_Text_Text;
+use Tribe\Project\Blocks\Types\Media_Text\Support\Media_Text_Media;
+use Tribe\Project\Blocks\Types\Media_Text\Support\Media_Text_Text;
 
 class Media_Text extends Block_Type_Config {
 	public const NAME = 'tribe/media-text';
 
 	public const LAYOUT       = 'layout';
-	public const MEDIA_LEFT   = 'left';
-	public const MEDIA_RIGHT  = 'right';
-	public const MEDIA_CENTER = 'center';
+	public const MEDIA_LEFT   = 'layout-left';
+	public const MEDIA_RIGHT  = 'layout-right';
+	public const MEDIA_CENTER = 'layout-center';
 	public const WIDTH        = 'width';
-	public const WIDTH_BOXED  = 'boxed';
-	public const WIDTH_FULL   = 'full';
+	public const WIDTH_GRID   = 'width-grid';
+	public const WIDTH_FULL   = 'width-full';
 	public const CONTAINER    = 'container';
 
 	public const TITLE   = 'title';
@@ -33,6 +33,9 @@ class Media_Text extends Block_Type_Config {
 	public function build(): Block_Type_Interface {
 		return $this->factory->block( self::NAME )
 			->set_label( __( 'Media + Text', 'tribe' ) )
+			->add_class( 'c-panel c-panel--media-text' )
+			->add_data_source( 'className-c-panel', self::LAYOUT )
+			->add_data_source( 'className-c-panel', self::WIDTH )
 			->set_dashicon( 'menu-alt' )
 			->add_content_section( $this->child_container() )
 			->add_toolbar_section( $this->layout_toolbar() )
@@ -41,6 +44,7 @@ class Media_Text extends Block_Type_Config {
 
 	private function child_container(): Content_Section {
 		return $this->factory->content()->section()
+			->add_class( 'media-text__container' )
 			->add_field(
 				$this->factory->content()->field()->fixed_container( self::CONTAINER )
 					->add_template_block( Media_Text_Media::NAME )
@@ -59,12 +63,14 @@ class Media_Text extends Block_Type_Config {
 					->add_dashicon_option( self::MEDIA_LEFT, __( 'Media Left', 'tribe' ), 'editor-alignleft' )
 					->add_dashicon_option( self::MEDIA_CENTER, __( 'Media Center', 'tribe' ), 'editor-aligncenter' )
 					->add_dashicon_option( self::MEDIA_RIGHT, __( 'Media Right', 'tribe' ), 'editor-alignright' )
+					->set_default( self::MEDIA_LEFT )
 					->build()
 			)
 			->add_field(
 				$this->factory->toolbar()->field()->icon_select( self::WIDTH )
-					->add_dashicon_option( self::WIDTH_BOXED, __( 'Boxed', 'tribe' ), 'editor-contract' )
+					->add_dashicon_option( self::WIDTH_GRID, __( 'Grid', 'tribe' ), 'editor-contract' )
 					->add_dashicon_option( self::WIDTH_FULL, __( 'Full', 'tribe' ), 'editor-expand' )
+					->set_default( self::WIDTH_GRID )
 					->build()
 			)
 			->build();
