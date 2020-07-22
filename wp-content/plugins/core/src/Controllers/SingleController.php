@@ -51,6 +51,12 @@ class SingleController extends Controller {
 		$this->render_component( 'document/Document.php', $args );
 	}
 
+	public function page_cards() {
+		$args = $this->get_static_page_args( 'page/page-cards/Page_Cards.php' );
+
+		$this->render_component( 'document/Document.php', $args );
+	}
+
 	public function section() {
 		$args = $this->get_static_page_args( 'page/page-section/Page_Section.php' );
 

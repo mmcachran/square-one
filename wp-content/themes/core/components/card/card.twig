@@ -1,41 +1,64 @@
-<div {{ card_classes|stringify }}>
+<article {{ classes|stringify }}>
 
-    {% if before_card %}
-        {{ before_card }}
-    {% endif %}
+    lean into sink classes vs. component specific classes (keep this minimal)
 
     {% if image %}
-        <header {{ card_header_classes|stringify }}>
-            {{ component( 'image/Image.php', image ) }}
-        </header>
+        <div class="c-card__media">
+
+            c-card__image c-image--16x9
+            {% if image %}
+                {{ component( 'image/Image.php', image ) }}
+            {% endif %}
+
+            c-card__icon
+            {% if icon %}
+                {{ component( 'image/Image.php', icon ) }}
+            {% endif %}
+
+        </div>
     {% endif %}
 
-    <div {{ card_content_classes|stringify }}>
+    <div class="c-card__body">
 
-        {% if pre_title %}
-            {{ pre_title }}
-        {% endif %}
+        {% if meta_primary or title or meta_secondary %}
+            <header class="c-card__header c-card__section">
 
-        {% if title %}
-            {{ component( 'text/Text.php', title ) }}
-        {% endif %}
+                c-card__meta c-card__meta--primary p
+                {% if meta_primary %}
+                    {{ component( 'text/Text.php', meta_primary ) }}
+                {% endif %}
 
-        {% if post_title %}
-            {{ post_title }}
+                c-card__title h5
+                {% if title %}
+                    {{ component( 'text/Text.php', title ) }}
+                {% endif %}
+
+                c-card__meta c-card__meta--secondary p
+                {% if meta_secondary %}
+                    {{ component( 'text/Text.php', meta_secondary ) }}
+                {% endif %}
+
+            </header>
         {% endif %}
 
         {% if text %}
-            {{ component( 'text/Text.php', text ) }}
+            <div class="c-card__content c-card__section">
+
+                c-card__text p
+                {{ component( 'text/Text.php', text ) }}
+
+            </div>
         {% endif %}
 
-        {% if button %}
-            {{ component( 'button/Button.php', button ) }}
+        {% if action %}
+            <footer class="c-card__footer c-card__section">
+
+                c-card__action c-btn
+                {{ component( 'button/Button.php', action ) }}
+
+            </footer>
         {% endif %}
 
     </div>
 
-    {% if after_card %}
-        {{ after_card }}
-    {% endif %}
-
-</div>
+</article>
