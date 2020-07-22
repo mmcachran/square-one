@@ -76,15 +76,15 @@ class Card extends Component {
 			$this->data[ self::CLASSES ][] = 'c-card--media-' . $this->data[ self::MEDIA_POSITION ];
 
 			if ( $this->data[ self::MEDIA_POSITION ] === self::MEDIA_TOP || $this->data[ self::MEDIA_POSITION ] === self::MEDIA_BOTTOM ) {
-				$this->data[ self::CLASSES ][] = 'c-card--' . $this->data[ self::LAYOUT_STACKED ];
+				$this->data[ self::CLASSES ][] = 'c-card--' . self::LAYOUT_STACKED;
 			}
 
 			if ( $this->data[ self::MEDIA_POSITION ] === self::MEDIA_LEFT || $this->data[ self::MEDIA_POSITION ] === self::MEDIA_RIGHT ) {
-				$this->data[ self::CLASSES ][] = 'c-card--' . $this->data[ self::LAYOUT_INLINE ];
+				$this->data[ self::CLASSES ][] = 'c-card--' . self::LAYOUT_INLINE;
 			}
 
 			if ( $this->data[ self::MEDIA_POSITION ] === self::MEDIA_BEHIND ) {
-				$this->data[ self::CLASSES ][] = 'c-card--' . $this->data[ self::LAYOUT_OVERLAY ];
+				$this->data[ self::CLASSES ][] = 'c-card--' . self::LAYOUT_OVERLAY;
 			}
 		}
 	}
