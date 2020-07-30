@@ -42,11 +42,21 @@ class Blocks_Definer implements Definer_Interface {
 
 				DI\get( Types\Interstitial\Interstitial::class ),
 
+				DI\get( Types\Lead_Form\Lead_Form::class ),
+
+				DI\get( Types\Links\Links::class ),
+				DI\get( Types\Links\Support\Link::class ),
+
+				DI\get( Types\Logos\Logos::class ),
+				DI\get( Types\Logos\Support\Logo::class ),
+
 				DI\get( Types\Media_Text\Media_Text::class ),
 				DI\get( Types\Media_Text\Support\Media_Text_Media::class ),
 				DI\get( Types\Media_Text\Support\Media_Text_Media_Embed::class ),
 				DI\get( Types\Media_Text\Support\Media_Text_Media_Image::class ),
 				DI\get( Types\Media_Text\Support\Media_Text_Text::class ),
+
+				DI\get( Types\Quote\Quote::class ),
 			] ),
 
 			self::CONTROLLER_MAP => DI\add( [] ),
